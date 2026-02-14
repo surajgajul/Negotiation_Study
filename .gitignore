@@ -1,0 +1,22 @@
+venv/
+.venv/
+staticfiles/
+.idea/
+.vscode/
+_static_root/
+__pycache__/
+__temp*
+_bots*
+
+*.sqlite3
+*.py[cod]
+*.otreezip
+*.egg-info/
+*~
+.DS_Store
+
+# Session data and audit logs
+data/
+
+# Environment variables
+.env

@@ -1,0 +1,27 @@
+{{ block title }}
+Round {{ round_number }} Complete
+{{ endblock }}
+
+{{ block content }}
+<h2>Round Summary</h2>
+
+{% if agreement_reached %}
+    <div style="background-color: #c8e6c9; padding: 15px; border-radius: 5px;">
+        <h3 style="color: #2e7d32;">✓ Agreement Reached!</h3>
+        <p><strong>Final Price:</strong> ${{ final_price }}</p>
+    </div>
+{% else %}
+    <div style="background-color: #ffccbc; padding: 15px; border-radius: 5px;">
+        <h3 style="color: #d84315;">✗ No Agreement Reached</h3>
+        <p>You and the AI agent did not reach a deal in this round.</p>
+    </div>
+{% endif %}
+
+{% if round_number < 8 %}
+    <p>Click below to continue to the next round.</p>
+    {{ next_button }}
+{% else %}
+    <p>This was the final round. Click below to proceed to the survey.</p>
+    {{ next_button }}
+{% endif %}
+{{ endblock }}

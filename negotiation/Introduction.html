@@ -1,0 +1,31 @@
+{{ block title }}
+Welcome to the Negotiation Study
+{{ endblock }}
+
+{{ block content }}
+<h2>Study Overview</h2>
+<p>In this study, you will negotiate wholesale prices with an AI agent across multiple rounds.</p>
+
+<h3>Your Role</h3>
+<p>You will alternate between being a <strong>buyer</strong> (retailer) and a <strong>supplier</strong>.</p>
+
+<h3>How It Works</h3>
+<ul>
+    <li>Each round, you'll negotiate a price with an AI agent</li>
+    <li>You can make offers, counteroffers, or accept the other party's offer</li>
+    <li>Rounds will have different configurations for reflection</li>
+    <li>Your goal is to reach a mutually acceptable deal</li>
+</ul>
+
+<h3>Negotiation Parameters</h3>
+<ul>
+    <li><strong>As a buyer:</strong> Price range $1-$99 (you want the lowest price)</li>
+    <li><strong>As a supplier:</strong> Price range $31-$200 (you want the highest price)</li>
+    <li><strong>Maximum turns per side:</strong> 5</li>
+    <li><strong>Time limit per turn:</strong> 90 seconds</li>
+</ul>
+
+<p>Click below when you're ready to begin.</p>
+
+{{ next_button }}
+{{ endblock }}

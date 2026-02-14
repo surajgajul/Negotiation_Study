@@ -1,0 +1,29 @@
+{{ block title }}
+Round {{ round_number }}: {% if player_role == 'buyer' %}Buyer{% else %}Supplier{% endif %}
+{{ endblock }}
+
+{{ block content }}
+<h2>Round {{ round_number }} of 8</h2>
+
+<h3>Your Role This Round: <strong>{{ player_role }}</strong></h3>
+
+{% if player_role == 'buyer' %}
+    <p>You are a <strong>retailer</strong> negotiating a wholesale price with a supplier.</p>
+    <ul>
+        <li>You sell units at $100</li>
+        <li>Your allowed price range: $1-$99</li>
+        <li>You want the LOWEST possible price</li>
+    </ul>
+{% else %}
+    <p>You are a <strong>supplier</strong> negotiating a wholesale price with a retailer.</p>
+    <ul>
+        <li>Your production cost: $30 per unit</li>
+        <li>Your allowed price range: $31-$200</li>
+        <li>You want the HIGHEST possible price</li>
+    </ul>
+{% endif %}
+
+<p>Click below to begin this round's negotiation.</p>
+
+{{ next_button }}
+{{ endblock }}

@@ -1,0 +1,72 @@
+study:
+  # Economic parameters (based on existing newsvendor setup)
+  p: 100              # Retail price
+  c: 30               # Production cost
+  w_star: 62.90       # Nash equilibrium price
+
+  # Price ranges
+  buyer_range: [1, 99]      # Human as buyer price range
+  supplier_range: [31, 200] # Human as supplier price range
+
+  # Time and turn limits
+  max_turns_per_side: 5
+  max_time_per_side_sec: 90
+
+  # AI model settings
+  reflection_tokens: 128
+  temperature: 0.2
+  model_provider: openai      # mock (for testing), ollama, openai, anthropic, google, bedrock
+  model_name: gpt-5
+
+  # Study parameters
+  total_rounds: 8            # 4 rounds × 2 blocks
+  blocks: 2                  # Reflection on/off blocks
+
+logging:
+  storage: otree
+  keep_messages: true
+
+randomization:
+  # Block orders: reflection first vs no-reflection first
+  block_orders: ["OffOn", "OnOff"]
+  # Within-block sequences (role × initiator combinations)
+  sequences: [1, 2, 3, 4, 5, 6, 7, 8]
+
+# Survey questions for study
+surveys:
+  pre_survey:
+    - question: "What is your age?"
+      type: "number"
+      required: true
+    - question: "What is your gender?"
+      type: "select"
+      options: ["Male", "Female", "Non-binary", "Prefer not to say"]
+      required: true
+    - question: "How would you rate your negotiation experience?"
+      type: "scale"
+      scale: [1, 2, 3, 4, 5, 6, 7]
+      labels: ["No experience", "Expert"]
+      required: true
+    - question: "How familiar are you with AI systems?"
+      type: "scale"
+      scale: [1, 2, 3, 4, 5, 6, 7]
+      labels: ["Not familiar", "Very familiar"]
+      required: true
+
+  post_survey:
+    - question: "How would you rate the AI's negotiation ability?"
+      type: "scale"
+      scale: [1, 2, 3, 4, 5, 6, 7]
+      labels: ["Very poor", "Excellent"]
+      required: true
+    - question: "Did you notice any patterns in the AI's behavior?"
+      type: "text"
+      required: false
+    - question: "How realistic did the negotiations feel?"
+      type: "scale"
+      scale: [1, 2, 3, 4, 5, 6, 7]
+      labels: ["Not realistic", "Very realistic"]
+      required: true
+    - question: "Any additional comments?"
+      type: "text"
+      required: false
