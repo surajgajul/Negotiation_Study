@@ -312,12 +312,11 @@ class Negotiation(Page):
         if offer is None:
             return 'Please enter an offer when making a counter-offer.'
 
-        # Validate offer is within valid range
-        # Determine valid range based on round number (alternating)
-        round_num = self.round_number
-        if round_num % 2 == 1:  # Odd rounds
+        # Validate offer is within valid range based on player role
+        player_role = self.player_role if self.player_role else self.get_role()
+        if player_role == 'buyer':
             valid_range = [1, 99]
-        else:  # Even rounds
+        else:
             valid_range = [31, 200]
 
         if offer < valid_range[0] or offer > valid_range[1]:
@@ -340,12 +339,10 @@ class Negotiation(Page):
         # Get player role - use get_role() if not set in DB
         player_role = self.player_role if self.player_role else self.get_role()
 
-        # Alternate ranges between rounds: odd rounds use [1, 99], even rounds use [31, 200]
-        # BOTH buyer and supplier use the SAME range in each round
-        round_num = self.round_number
-        if round_num % 2 == 1:  # Odd rounds (1, 3, 5, 7)
+        # Set range based on player role: buyer [1, 99], supplier [31, 200]
+        if player_role == 'buyer':
             valid_range = [1, 99]
-        else:  # Even rounds (2, 4, 6, 8)
+        else:
             valid_range = [31, 200]
 
         # Role label
@@ -388,7 +385,7 @@ class Negotiation(Page):
             print(f">>> Generating initial AI message (player role: {player_role})")
             try:
                 ai_role = 'supplier' if player_role == 'buyer' else 'buyer'
-                ai_bounds = valid_range
+                ai_bounds = [1, 99] if ai_role == 'buyer' else [31, 200]
                 print(f">>> AI role: {ai_role}, bounds: {ai_bounds}, reflection: {self.subsession.reflection_on}")
 
                 orchestrator = Orchestrator()
@@ -611,23 +608,15 @@ class Negotiation(Page):
                 entry += f" [Offer: ${m['offer']}]"
             conversation_text.append(entry)
 
-        # Get price ranges - alternate between rounds, BOTH buyer and supplier use SAME range
-        round_num = self.round_number
-        if round_num % 2 == 1:  # Odd rounds (1, 3, 5, 7)
-            valid_range = (1, 99)
-        else:  # Even rounds (2, 4, 6, 8)
-            valid_range = (31, 200)
-
-        # Both buyer and supplier use the same range
-        buyer_range = valid_range
-        supplier_range = valid_range
-
         # Determine AI role (opposite of human)
         player_role = self.player_role if self.player_role else self.get_role()
         ai_role = 'supplier' if player_role == 'buyer' else 'buyer'
 
-        # AI uses the same range as its role would use (which is now the same for all)
-        ai_bounds = valid_range
+        # Set AI bounds based on AI's role
+        if ai_role == 'buyer':
+            ai_bounds = (1, 99)
+        else:
+            ai_bounds = (31, 200)
 
         # Get AI response via orchestrator
         print(f">>> Getting AI response (role: {ai_role}, bounds: {ai_bounds})")

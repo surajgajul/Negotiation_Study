@@ -15,8 +15,8 @@ study:
   # AI model settings
   reflection_tokens: 128
   temperature: 0.2
-  model_provider: openai      # mock (for testing), ollama, openai, anthropic, google, bedrock
-  model_name: gpt-5
+  model_provider: bedrock      # mock (for testing), ollama, openai, anthropic, google, bedrock
+  model_name: us.anthropic.claude-sonnet-4-20250514-v1:0
 
   # Study parameters
   total_rounds: 8            # 4 rounds × 2 blocks
