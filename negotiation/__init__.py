@@ -189,6 +189,61 @@ class Player(BasePlayer):
     age = models.IntegerField(blank=True, null=True)
     gender = models.StringField(choices=['Male', 'Female', 'Other', 'Rather not say'], blank=True)
 
+    # Cognitive Reflection Test (CRT) — Bialek & Pennycook (2018) Alternate Items
+    crt_car_bus = models.IntegerField(blank=True, null=True, label='Car and bus problem')
+    crt_nurses = models.IntegerField(blank=True, null=True, label='Nurses problem')
+    crt_seaweed = models.IntegerField(blank=True, null=True, label='Seaweed problem')
+    crt_car_bus_correct = models.BooleanField(initial=False)
+    crt_nurses_correct = models.BooleanField(initial=False)
+    crt_seaweed_correct = models.BooleanField(initial=False)
+    crt_score = models.IntegerField(initial=0)  # 0-3 correct answers
+
+    # BFI-10 (Big Five Inventory - Short Form)
+    bfi_reserved = models.IntegerField(blank=True, null=True, choices=[1, 2, 3, 4, 5])
+    bfi_trusting = models.IntegerField(blank=True, null=True, choices=[1, 2, 3, 4, 5])
+    bfi_lazy = models.IntegerField(blank=True, null=True, choices=[1, 2, 3, 4, 5])
+    bfi_relaxed = models.IntegerField(blank=True, null=True, choices=[1, 2, 3, 4, 5])
+    bfi_artistic = models.IntegerField(blank=True, null=True, choices=[1, 2, 3, 4, 5])
+    bfi_outgoing = models.IntegerField(blank=True, null=True, choices=[1, 2, 3, 4, 5])
+    bfi_fault_finding = models.IntegerField(blank=True, null=True, choices=[1, 2, 3, 4, 5])
+    bfi_thorough = models.IntegerField(blank=True, null=True, choices=[1, 2, 3, 4, 5])
+    bfi_nervous = models.IntegerField(blank=True, null=True, choices=[1, 2, 3, 4, 5])
+    bfi_imagination = models.IntegerField(blank=True, null=True, choices=[1, 2, 3, 4, 5])
+
+    # Algorithm Appreciation Scale (Logg, Minson & Moore, 2019)
+    aa_trust_algorithms = models.IntegerField(blank=True, null=True, choices=[1, 2, 3, 4, 5])
+    aa_prefer_people = models.IntegerField(blank=True, null=True, choices=[1, 2, 3, 4, 5])
+    aa_rely_algorithms = models.IntegerField(blank=True, null=True, choices=[1, 2, 3, 4, 5])
+    aa_easier_algorithm = models.IntegerField(blank=True, null=True, choices=[1, 2, 3, 4, 5])
+    aa_algorithms_accurate = models.IntegerField(blank=True, null=True, choices=[1, 2, 3, 4, 5])
+    aa_humans_better = models.IntegerField(blank=True, null=True, choices=[1, 2, 3, 4, 5])
+
+    # Need for Cognition — Short Form (NCS-6)
+    nfc_complex_problems = models.IntegerField(blank=True, null=True, choices=[1, 2, 3, 4, 5])
+    nfc_responsibility_thinking = models.IntegerField(blank=True, null=True, choices=[1, 2, 3, 4, 5])
+    nfc_thinking_not_fun = models.IntegerField(blank=True, null=True, choices=[1, 2, 3, 4, 5])
+    nfc_little_thought = models.IntegerField(blank=True, null=True, choices=[1, 2, 3, 4, 5])
+    nfc_new_solutions = models.IntegerField(blank=True, null=True, choices=[1, 2, 3, 4, 5])
+    nfc_intellectual_task = models.IntegerField(blank=True, null=True, choices=[1, 2, 3, 4, 5])
+
+    # Propensity to Trust — General (McKnight et al., 2002)
+    pt_trust_until_reason = models.IntegerField(blank=True, null=True, choices=[1, 2, 3, 4, 5])
+    pt_trust_little_knowledge = models.IntegerField(blank=True, null=True, choices=[1, 2, 3, 4, 5])
+    pt_not_trust_strangers = models.IntegerField(blank=True, null=True, choices=[1, 2, 3, 4, 5])
+    pt_comfortable_trusting = models.IntegerField(blank=True, null=True, choices=[1, 2, 3, 4, 5])
+
+    # GAAIS — Positive Subscale (Schepman & Rodway, 2020)
+    gaais_p_interested = models.IntegerField(blank=True, null=True, choices=[1, 2, 3, 4, 5])
+    gaais_p_perform_better = models.IntegerField(blank=True, null=True, choices=[1, 2, 3, 4, 5])
+    gaais_p_welcome = models.IntegerField(blank=True, null=True, choices=[1, 2, 3, 4, 5])
+    gaais_p_exciting = models.IntegerField(blank=True, null=True, choices=[1, 2, 3, 4, 5])
+    gaais_p_positive = models.IntegerField(blank=True, null=True, choices=[1, 2, 3, 4, 5])
+    gaais_p_trust_recommend = models.IntegerField(blank=True, null=True, choices=[1, 2, 3, 4, 5])
+    gaais_p_comfort = models.IntegerField(blank=True, null=True, choices=[1, 2, 3, 4, 5])
+    gaais_p_good_thing = models.IntegerField(blank=True, null=True, choices=[1, 2, 3, 4, 5])
+    gaais_p_health_advisor = models.IntegerField(blank=True, null=True, choices=[1, 2, 3, 4, 5])
+    gaais_p_benefit_society = models.IntegerField(blank=True, null=True, choices=[1, 2, 3, 4, 5])
+
 
 # PAGES
 class SessionStart(Page):
@@ -216,7 +271,8 @@ class Introduction(Page):
 class PreSurvey(Page):
     """Pre-negotiation survey"""
     form_model = 'player'
-    form_fields = ['age', 'gender', 'negotiation_experience', 'ai_familiarity']
+    form_fields = ['age', 'gender', 'negotiation_experience', 'ai_familiarity',
+                   'crt_car_bus', 'crt_nurses', 'crt_seaweed']
 
     def is_displayed(self):
         return self.round_number == 1
@@ -239,7 +295,43 @@ class PreSurvey(Page):
         if not values.get('ai_familiarity'):
             errors['ai_familiarity'] = 'Please rate your AI familiarity'
 
+        if values.get('crt_car_bus') is None:
+            errors['crt_car_bus'] = 'Please answer this question'
+        if values.get('crt_nurses') is None:
+            errors['crt_nurses'] = 'Please answer this question'
+        if values.get('crt_seaweed') is None:
+            errors['crt_seaweed'] = 'Please answer this question'
+
         return errors if errors else None
+
+    def before_next_page(self, timeout_happened=False):
+        # Score CRT answers
+        self.crt_car_bus_correct = (self.crt_car_bus == 500)
+        self.crt_nurses_correct = (self.crt_nurses == 3)
+        self.crt_seaweed_correct = (self.crt_seaweed == 99)
+        self.crt_score = sum([
+            self.crt_car_bus_correct,
+            self.crt_nurses_correct,
+            self.crt_seaweed_correct,
+        ])
+
+        # Log to session JSON
+        logger = SessionLogger(self.session.code)
+        logger.log_metadata({
+            "pre_survey": {
+                "age": self.age,
+                "gender": self.gender,
+                "negotiation_experience": self.negotiation_experience,
+                "ai_familiarity": self.ai_familiarity,
+                "crt_car_bus": self.crt_car_bus,
+                "crt_nurses": self.crt_nurses,
+                "crt_seaweed": self.crt_seaweed,
+                "crt_car_bus_correct": self.crt_car_bus_correct,
+                "crt_nurses_correct": self.crt_nurses_correct,
+                "crt_seaweed_correct": self.crt_seaweed_correct,
+                "crt_score": self.crt_score,
+            }
+        })
 
 
 class RoundInstructions(Page):
@@ -778,24 +870,104 @@ class RoundResults(Page):
 class PostSurvey(Page):
     """Post-study survey"""
     form_model = 'player'
-    form_fields = ['ai_ability_rating', 'behavior_patterns', 'realism_rating', 'additional_comments']
+    form_fields = [
+        'bfi_reserved', 'bfi_trusting', 'bfi_lazy', 'bfi_relaxed', 'bfi_artistic',
+        'bfi_outgoing', 'bfi_fault_finding', 'bfi_thorough', 'bfi_nervous', 'bfi_imagination',
+        'aa_trust_algorithms', 'aa_prefer_people', 'aa_rely_algorithms',
+        'aa_easier_algorithm', 'aa_algorithms_accurate', 'aa_humans_better',
+        'nfc_complex_problems', 'nfc_responsibility_thinking', 'nfc_thinking_not_fun',
+        'nfc_little_thought', 'nfc_new_solutions', 'nfc_intellectual_task',
+        'pt_trust_until_reason', 'pt_trust_little_knowledge',
+        'pt_not_trust_strangers', 'pt_comfortable_trusting',
+        'gaais_p_interested', 'gaais_p_perform_better', 'gaais_p_welcome',
+        'gaais_p_exciting', 'gaais_p_positive', 'gaais_p_trust_recommend',
+        'gaais_p_comfort', 'gaais_p_good_thing', 'gaais_p_health_advisor',
+        'gaais_p_benefit_society',
+    ]
 
     def is_displayed(self):
         return self.round_number == C.NUM_ROUNDS
+
+    def vars_for_template(self):
+        saved = {}
+        for field in PostSurvey.form_fields:
+            val = self.field_maybe_none(field)
+            if val is not None:
+                saved[field] = val
+        return dict(saved_values=json.dumps(saved))
 
     def error_message(self, values):
         """Validate post-survey responses"""
         errors = {}
 
-        
+        bfi_fields = {
+            'bfi_reserved': 'Is reserved',
+            'bfi_trusting': 'Is generally trusting',
+            'bfi_lazy': 'Tends to be lazy',
+            'bfi_relaxed': 'Is relaxed and handles stress well',
+            'bfi_artistic': 'Has few artistic interests',
+            'bfi_outgoing': 'Is outgoing and sociable',
+            'bfi_fault_finding': 'Tends to find fault with others',
+            'bfi_thorough': 'Does a thorough job',
+            'bfi_nervous': 'Gets nervous easily',
+            'bfi_imagination': 'Has an active imagination',
+        }
+        for field, label in bfi_fields.items():
+            if not values.get(field):
+                errors[field] = f'Please rate: "{label}"'
 
-        if not values.get('ai_ability_rating'):
-            errors['ai_ability_rating'] = 'Please rate the AI\'s negotiation ability'
+        aa_fields = {
+            'aa_trust_algorithms': 'I trust the judgment of relevant algorithms more than the judgment of relevant humans.',
+            'aa_prefer_people': 'I prefer to get advice from people rather than algorithms.',
+            'aa_rely_algorithms': 'When making a decision, I rely more on algorithms than on people.',
+            'aa_easier_algorithm': 'I find it easier to follow advice from an algorithm than from a person.',
+            'aa_algorithms_accurate': 'I believe algorithms are more accurate than humans at making predictions.',
+            'aa_humans_better': 'I think humans are better than algorithms at most tasks.',
+        }
+        for field, label in aa_fields.items():
+            if not values.get(field):
+                errors[field] = 'Please rate this statement'
 
-        if not values.get('realism_rating'):
-            errors['realism_rating'] = 'Please rate how realistic the negotiations felt'
+        nfc_fields = {
+            'nfc_complex_problems': 'I would prefer complex to simple problems.',
+            'nfc_responsibility_thinking': 'I like to have the responsibility of handling a situation that requires a lot of thinking.',
+            'nfc_thinking_not_fun': 'Thinking is not my idea of fun.',
+            'nfc_little_thought': 'I would rather do something that requires little thought than something that is sure to challenge my thinking abilities.',
+            'nfc_new_solutions': 'I really enjoy a task that involves coming up with new solutions to problems.',
+            'nfc_intellectual_task': 'I would prefer a task that is intellectual, difficult, and important to one that is somewhat important but does not require much thought.',
+        }
+        for field, label in nfc_fields.items():
+            if not values.get(field):
+                errors[field] = 'Please rate this statement'
+
+        pt_fields = {
+            'pt_trust_until_reason': 'I generally trust other people until they give me reason not to.',
+            'pt_trust_little_knowledge': 'I tend to trust people even though I have little knowledge of them.',
+            'pt_not_trust_strangers': 'Trusting strangers is not something I do.',
+            'pt_comfortable_trusting': 'I feel comfortable trusting others before I know them very well.',
+        }
+        for field, label in pt_fields.items():
+            if not values.get(field):
+                errors[field] = 'Please rate this statement'
+
+        gaais_p_fields = [
+            'gaais_p_interested', 'gaais_p_perform_better', 'gaais_p_welcome',
+            'gaais_p_exciting', 'gaais_p_positive', 'gaais_p_trust_recommend',
+            'gaais_p_comfort', 'gaais_p_good_thing', 'gaais_p_health_advisor',
+            'gaais_p_benefit_society',
+        ]
+        for field in gaais_p_fields:
+            if not values.get(field):
+                errors[field] = 'Please rate this statement'
 
         return errors if errors else None
+
+    def before_next_page(self, timeout_happened=False):
+        logger = SessionLogger(self.session.code)
+        survey_data = {}
+        for field in PostSurvey.form_fields:
+            survey_data[field] = getattr(self, field, None)
+        logger.log_metadata({"post_survey": survey_data})
 
 
 class FinalResults(Page):

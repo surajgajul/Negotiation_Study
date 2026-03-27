@@ -5,6 +5,63 @@ Background Questions
 {{ block content }}
 <p>Please answer the following questions about yourself before we begin the negotiation rounds.</p>
 
-{{ formfields }}
+{{ formfield 'age' }}
+{{ formfield 'gender' }}
+{{ formfield 'negotiation_experience' }}
+{{ formfield 'ai_familiarity' }}
+
+<hr>
+
+<h3>Cognitive Reflection Test</h3>
+<p>Please answer the following questions. Some have a quick answer that comes to mind first &mdash; take a moment to check whether that first answer is correct.</p>
+
+<style>
+    .crt-question {
+        margin-bottom: 20px;
+        padding: 15px;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        border-left: 4px solid #007bff;
+    }
+    .crt-question p {
+        margin-bottom: 10px;
+    }
+    .crt-question label {
+        font-weight: 600;
+    }
+    .crt-input {
+        width: 120px;
+        padding: 6px 10px;
+        font-size: 1em;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+    }
+    .crt-input:focus {
+        border-color: #007bff;
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+    }
+</style>
+
+<div class="crt-question">
+    <p><strong>1.</strong> A car and a bus together cost $7,000. The car costs $6,000 more than the bus. How much does the bus cost?</p>
+    <label for="id_crt_car_bus">Your answer: $</label>
+    <input type="number" name="crt_car_bus" id="id_crt_car_bus" class="crt-input" min="0" step="1">
+</div>
+
+<div class="crt-question">
+    <p><strong>2.</strong> If it takes 3 nurses 3 minutes to check 3 patients, how long does it take 100 nurses to check 100 patients?</p>
+    <label for="id_crt_nurses">Your answer:</label>
+    <input type="number" name="crt_nurses" id="id_crt_nurses" class="crt-input" min="0" step="1">
+    <span>minutes</span>
+</div>
+
+<div class="crt-question">
+    <p><strong>3.</strong> In an ocean, there is a patch of seaweed. Each day the patch triples in size. It takes 100 days to cover the whole ocean. How long to cover one third of the ocean?</p>
+    <label for="id_crt_seaweed">Your answer:</label>
+    <input type="number" name="crt_seaweed" id="id_crt_seaweed" class="crt-input" min="0" step="1">
+    <span>days</span>
+</div>
+
 {{ next_button }}
 {{ endblock }}

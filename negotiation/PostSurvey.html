@@ -7,6 +7,433 @@ Study Feedback
 
 <p>Please answer the following questions about your experience in the study.</p>
 
-{{ formfields }}
+
+<h3>1. Big Five Inventory — Short Form (BFI-10)</h3>
+<p><em>I see myself as someone who...</em></p>
+<p class="text-muted">Rate each statement from 1 (Strongly Disagree) to 5 (Strongly Agree).</p>
+
+<style>
+    .bfi-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+    .bfi-table th, .bfi-table td {
+        text-align: center;
+        padding: 8px 4px;
+        border-bottom: 1px solid #dee2e6;
+    }
+    .bfi-table th:first-child, .bfi-table td:first-child {
+        text-align: left;
+        width: 40%;
+    }
+    .bfi-table thead th {
+        font-size: 0.85em;
+        border-bottom: 2px solid #dee2e6;
+    }
+    .bfi-table input[type="radio"] {
+        transform: scale(1.2);
+        cursor: pointer;
+    }
+    .bfi-table tbody tr:hover {
+        background-color: #f8f9fa;
+    }
+</style>
+
+<table class="bfi-table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>1<br><small>Strongly<br>Disagree</small></th>
+            <th>2<br><small>Somewhat<br>Disagree</small></th>
+            <th>3<br><small>Neither</small></th>
+            <th>4<br><small>Somewhat<br>Agree</small></th>
+            <th>5<br><small>Strongly<br>Agree</small></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Is reserved</td>
+            <td><input type="radio" name="bfi_reserved" value="1"></td>
+            <td><input type="radio" name="bfi_reserved" value="2"></td>
+            <td><input type="radio" name="bfi_reserved" value="3"></td>
+            <td><input type="radio" name="bfi_reserved" value="4"></td>
+            <td><input type="radio" name="bfi_reserved" value="5"></td>
+        </tr>
+        <tr>
+            <td>Is generally trusting</td>
+            <td><input type="radio" name="bfi_trusting" value="1"></td>
+            <td><input type="radio" name="bfi_trusting" value="2"></td>
+            <td><input type="radio" name="bfi_trusting" value="3"></td>
+            <td><input type="radio" name="bfi_trusting" value="4"></td>
+            <td><input type="radio" name="bfi_trusting" value="5"></td>
+        </tr>
+        <tr>
+            <td>Tends to be lazy</td>
+            <td><input type="radio" name="bfi_lazy" value="1"></td>
+            <td><input type="radio" name="bfi_lazy" value="2"></td>
+            <td><input type="radio" name="bfi_lazy" value="3"></td>
+            <td><input type="radio" name="bfi_lazy" value="4"></td>
+            <td><input type="radio" name="bfi_lazy" value="5"></td>
+        </tr>
+        <tr>
+            <td>Is relaxed and handles stress well</td>
+            <td><input type="radio" name="bfi_relaxed" value="1"></td>
+            <td><input type="radio" name="bfi_relaxed" value="2"></td>
+            <td><input type="radio" name="bfi_relaxed" value="3"></td>
+            <td><input type="radio" name="bfi_relaxed" value="4"></td>
+            <td><input type="radio" name="bfi_relaxed" value="5"></td>
+        </tr>
+        <tr>
+            <td>Has few artistic interests</td>
+            <td><input type="radio" name="bfi_artistic" value="1"></td>
+            <td><input type="radio" name="bfi_artistic" value="2"></td>
+            <td><input type="radio" name="bfi_artistic" value="3"></td>
+            <td><input type="radio" name="bfi_artistic" value="4"></td>
+            <td><input type="radio" name="bfi_artistic" value="5"></td>
+        </tr>
+        <tr>
+            <td>Is outgoing and sociable</td>
+            <td><input type="radio" name="bfi_outgoing" value="1"></td>
+            <td><input type="radio" name="bfi_outgoing" value="2"></td>
+            <td><input type="radio" name="bfi_outgoing" value="3"></td>
+            <td><input type="radio" name="bfi_outgoing" value="4"></td>
+            <td><input type="radio" name="bfi_outgoing" value="5"></td>
+        </tr>
+        <tr>
+            <td>Tends to find fault with others</td>
+            <td><input type="radio" name="bfi_fault_finding" value="1"></td>
+            <td><input type="radio" name="bfi_fault_finding" value="2"></td>
+            <td><input type="radio" name="bfi_fault_finding" value="3"></td>
+            <td><input type="radio" name="bfi_fault_finding" value="4"></td>
+            <td><input type="radio" name="bfi_fault_finding" value="5"></td>
+        </tr>
+        <tr>
+            <td>Does a thorough job</td>
+            <td><input type="radio" name="bfi_thorough" value="1"></td>
+            <td><input type="radio" name="bfi_thorough" value="2"></td>
+            <td><input type="radio" name="bfi_thorough" value="3"></td>
+            <td><input type="radio" name="bfi_thorough" value="4"></td>
+            <td><input type="radio" name="bfi_thorough" value="5"></td>
+        </tr>
+        <tr>
+            <td>Gets nervous easily</td>
+            <td><input type="radio" name="bfi_nervous" value="1"></td>
+            <td><input type="radio" name="bfi_nervous" value="2"></td>
+            <td><input type="radio" name="bfi_nervous" value="3"></td>
+            <td><input type="radio" name="bfi_nervous" value="4"></td>
+            <td><input type="radio" name="bfi_nervous" value="5"></td>
+        </tr>
+        <tr>
+            <td>Has an active imagination</td>
+            <td><input type="radio" name="bfi_imagination" value="1"></td>
+            <td><input type="radio" name="bfi_imagination" value="2"></td>
+            <td><input type="radio" name="bfi_imagination" value="3"></td>
+            <td><input type="radio" name="bfi_imagination" value="4"></td>
+            <td><input type="radio" name="bfi_imagination" value="5"></td>
+        </tr>
+    </tbody>
+</table>
+
+
+<h3>2. Algorithm Appreciation Scale</h3>
+<p><em>Please indicate your agreement with each statement.</em></p>
+<p class="text-muted">Rate each statement from 1 (Strongly Disagree) to 5 (Strongly Agree).</p>
+
+<table class="bfi-table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>1<br><small>Strongly<br>Disagree</small></th>
+            <th>2<br><small>Somewhat<br>Disagree</small></th>
+            <th>3<br><small>Neither</small></th>
+            <th>4<br><small>Somewhat<br>Agree</small></th>
+            <th>5<br><small>Strongly<br>Agree</small></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>I trust the judgment of relevant algorithms more than the judgment of relevant humans.</td>
+            <td><input type="radio" name="aa_trust_algorithms" value="1"></td>
+            <td><input type="radio" name="aa_trust_algorithms" value="2"></td>
+            <td><input type="radio" name="aa_trust_algorithms" value="3"></td>
+            <td><input type="radio" name="aa_trust_algorithms" value="4"></td>
+            <td><input type="radio" name="aa_trust_algorithms" value="5"></td>
+        </tr>
+        <tr>
+            <td>I prefer to get advice from people rather than algorithms.</td>
+            <td><input type="radio" name="aa_prefer_people" value="1"></td>
+            <td><input type="radio" name="aa_prefer_people" value="2"></td>
+            <td><input type="radio" name="aa_prefer_people" value="3"></td>
+            <td><input type="radio" name="aa_prefer_people" value="4"></td>
+            <td><input type="radio" name="aa_prefer_people" value="5"></td>
+        </tr>
+        <tr>
+            <td>When making a decision, I rely more on algorithms than on people.</td>
+            <td><input type="radio" name="aa_rely_algorithms" value="1"></td>
+            <td><input type="radio" name="aa_rely_algorithms" value="2"></td>
+            <td><input type="radio" name="aa_rely_algorithms" value="3"></td>
+            <td><input type="radio" name="aa_rely_algorithms" value="4"></td>
+            <td><input type="radio" name="aa_rely_algorithms" value="5"></td>
+        </tr>
+        <tr>
+            <td>I find it easier to follow advice from an algorithm than from a person.</td>
+            <td><input type="radio" name="aa_easier_algorithm" value="1"></td>
+            <td><input type="radio" name="aa_easier_algorithm" value="2"></td>
+            <td><input type="radio" name="aa_easier_algorithm" value="3"></td>
+            <td><input type="radio" name="aa_easier_algorithm" value="4"></td>
+            <td><input type="radio" name="aa_easier_algorithm" value="5"></td>
+        </tr>
+        <tr>
+            <td>I believe algorithms are more accurate than humans at making predictions.</td>
+            <td><input type="radio" name="aa_algorithms_accurate" value="1"></td>
+            <td><input type="radio" name="aa_algorithms_accurate" value="2"></td>
+            <td><input type="radio" name="aa_algorithms_accurate" value="3"></td>
+            <td><input type="radio" name="aa_algorithms_accurate" value="4"></td>
+            <td><input type="radio" name="aa_algorithms_accurate" value="5"></td>
+        </tr>
+        <tr>
+            <td>I think humans are better than algorithms at most tasks.</td>
+            <td><input type="radio" name="aa_humans_better" value="1"></td>
+            <td><input type="radio" name="aa_humans_better" value="2"></td>
+            <td><input type="radio" name="aa_humans_better" value="3"></td>
+            <td><input type="radio" name="aa_humans_better" value="4"></td>
+            <td><input type="radio" name="aa_humans_better" value="5"></td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>3. Need for Cognition — Short Form (NCS-6)</h3>
+<p><em>Please indicate how well each statement describes you.</em></p>
+<p class="text-muted">Rate each statement from 1 (Strongly Disagree) to 5 (Strongly Agree).</p>
+
+<table class="bfi-table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>1<br><small>Strongly<br>Disagree</small></th>
+            <th>2<br><small>Somewhat<br>Disagree</small></th>
+            <th>3<br><small>Neither</small></th>
+            <th>4<br><small>Somewhat<br>Agree</small></th>
+            <th>5<br><small>Strongly<br>Agree</small></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>I would prefer complex to simple problems.</td>
+            <td><input type="radio" name="nfc_complex_problems" value="1"></td>
+            <td><input type="radio" name="nfc_complex_problems" value="2"></td>
+            <td><input type="radio" name="nfc_complex_problems" value="3"></td>
+            <td><input type="radio" name="nfc_complex_problems" value="4"></td>
+            <td><input type="radio" name="nfc_complex_problems" value="5"></td>
+        </tr>
+        <tr>
+            <td>I like to have the responsibility of handling a situation that requires a lot of thinking.</td>
+            <td><input type="radio" name="nfc_responsibility_thinking" value="1"></td>
+            <td><input type="radio" name="nfc_responsibility_thinking" value="2"></td>
+            <td><input type="radio" name="nfc_responsibility_thinking" value="3"></td>
+            <td><input type="radio" name="nfc_responsibility_thinking" value="4"></td>
+            <td><input type="radio" name="nfc_responsibility_thinking" value="5"></td>
+        </tr>
+        <tr>
+            <td>Thinking is not my idea of fun.</td>
+            <td><input type="radio" name="nfc_thinking_not_fun" value="1"></td>
+            <td><input type="radio" name="nfc_thinking_not_fun" value="2"></td>
+            <td><input type="radio" name="nfc_thinking_not_fun" value="3"></td>
+            <td><input type="radio" name="nfc_thinking_not_fun" value="4"></td>
+            <td><input type="radio" name="nfc_thinking_not_fun" value="5"></td>
+        </tr>
+        <tr>
+            <td>I would rather do something that requires little thought than something that is sure to challenge my thinking abilities.</td>
+            <td><input type="radio" name="nfc_little_thought" value="1"></td>
+            <td><input type="radio" name="nfc_little_thought" value="2"></td>
+            <td><input type="radio" name="nfc_little_thought" value="3"></td>
+            <td><input type="radio" name="nfc_little_thought" value="4"></td>
+            <td><input type="radio" name="nfc_little_thought" value="5"></td>
+        </tr>
+        <tr>
+            <td>I really enjoy a task that involves coming up with new solutions to problems.</td>
+            <td><input type="radio" name="nfc_new_solutions" value="1"></td>
+            <td><input type="radio" name="nfc_new_solutions" value="2"></td>
+            <td><input type="radio" name="nfc_new_solutions" value="3"></td>
+            <td><input type="radio" name="nfc_new_solutions" value="4"></td>
+            <td><input type="radio" name="nfc_new_solutions" value="5"></td>
+        </tr>
+        <tr>
+            <td>I would prefer a task that is intellectual, difficult, and important to one that is somewhat important but does not require much thought.</td>
+            <td><input type="radio" name="nfc_intellectual_task" value="1"></td>
+            <td><input type="radio" name="nfc_intellectual_task" value="2"></td>
+            <td><input type="radio" name="nfc_intellectual_task" value="3"></td>
+            <td><input type="radio" name="nfc_intellectual_task" value="4"></td>
+            <td><input type="radio" name="nfc_intellectual_task" value="5"></td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>4. Propensity to Trust — General</h3>
+<p><em>Please indicate your agreement with each statement.</em></p>
+<p class="text-muted">Rate each statement from 1 (Strongly Disagree) to 5 (Strongly Agree).</p>
+
+<table class="bfi-table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>1<br><small>Strongly<br>Disagree</small></th>
+            <th>2<br><small>Somewhat<br>Disagree</small></th>
+            <th>3<br><small>Neither</small></th>
+            <th>4<br><small>Somewhat<br>Agree</small></th>
+            <th>5<br><small>Strongly<br>Agree</small></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>I generally trust other people until they give me reason not to.</td>
+            <td><input type="radio" name="pt_trust_until_reason" value="1"></td>
+            <td><input type="radio" name="pt_trust_until_reason" value="2"></td>
+            <td><input type="radio" name="pt_trust_until_reason" value="3"></td>
+            <td><input type="radio" name="pt_trust_until_reason" value="4"></td>
+            <td><input type="radio" name="pt_trust_until_reason" value="5"></td>
+        </tr>
+        <tr>
+            <td>I tend to trust people even though I have little knowledge of them.</td>
+            <td><input type="radio" name="pt_trust_little_knowledge" value="1"></td>
+            <td><input type="radio" name="pt_trust_little_knowledge" value="2"></td>
+            <td><input type="radio" name="pt_trust_little_knowledge" value="3"></td>
+            <td><input type="radio" name="pt_trust_little_knowledge" value="4"></td>
+            <td><input type="radio" name="pt_trust_little_knowledge" value="5"></td>
+        </tr>
+        <tr>
+            <td>Trusting strangers is not something I do.</td>
+            <td><input type="radio" name="pt_not_trust_strangers" value="1"></td>
+            <td><input type="radio" name="pt_not_trust_strangers" value="2"></td>
+            <td><input type="radio" name="pt_not_trust_strangers" value="3"></td>
+            <td><input type="radio" name="pt_not_trust_strangers" value="4"></td>
+            <td><input type="radio" name="pt_not_trust_strangers" value="5"></td>
+        </tr>
+        <tr>
+            <td>I feel comfortable trusting others before I know them very well.</td>
+            <td><input type="radio" name="pt_comfortable_trusting" value="1"></td>
+            <td><input type="radio" name="pt_comfortable_trusting" value="2"></td>
+            <td><input type="radio" name="pt_comfortable_trusting" value="3"></td>
+            <td><input type="radio" name="pt_comfortable_trusting" value="4"></td>
+            <td><input type="radio" name="pt_comfortable_trusting" value="5"></td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>5. General Attitudes Towards AI (GAAIS) — Positive Subscale</h3>
+<p><em>Please indicate how much you agree or disagree with each statement about AI.</em></p>
+<p class="text-muted">Rate each statement from 1 (Strongly Disagree) to 5 (Strongly Agree).</p>
+
+<table class="bfi-table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>1<br><small>Strongly<br>Disagree</small></th>
+            <th>2<br><small>Somewhat<br>Disagree</small></th>
+            <th>3<br><small>Neither</small></th>
+            <th>4<br><small>Somewhat<br>Agree</small></th>
+            <th>5<br><small>Strongly<br>Agree</small></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>I am interested in using artificially intelligent systems in my daily life.</td>
+            <td><input type="radio" name="gaais_p_interested" value="1"></td>
+            <td><input type="radio" name="gaais_p_interested" value="2"></td>
+            <td><input type="radio" name="gaais_p_interested" value="3"></td>
+            <td><input type="radio" name="gaais_p_interested" value="4"></td>
+            <td><input type="radio" name="gaais_p_interested" value="5"></td>
+        </tr>
+        <tr>
+            <td>Artificially intelligent systems can perform better than humans at many tasks.</td>
+            <td><input type="radio" name="gaais_p_perform_better" value="1"></td>
+            <td><input type="radio" name="gaais_p_perform_better" value="2"></td>
+            <td><input type="radio" name="gaais_p_perform_better" value="3"></td>
+            <td><input type="radio" name="gaais_p_perform_better" value="4"></td>
+            <td><input type="radio" name="gaais_p_perform_better" value="5"></td>
+        </tr>
+        <tr>
+            <td>I would welcome artificially intelligent systems in my personal life.</td>
+            <td><input type="radio" name="gaais_p_welcome" value="1"></td>
+            <td><input type="radio" name="gaais_p_welcome" value="2"></td>
+            <td><input type="radio" name="gaais_p_welcome" value="3"></td>
+            <td><input type="radio" name="gaais_p_welcome" value="4"></td>
+            <td><input type="radio" name="gaais_p_welcome" value="5"></td>
+        </tr>
+        <tr>
+            <td>I think artificial intelligence is exciting.</td>
+            <td><input type="radio" name="gaais_p_exciting" value="1"></td>
+            <td><input type="radio" name="gaais_p_exciting" value="2"></td>
+            <td><input type="radio" name="gaais_p_exciting" value="3"></td>
+            <td><input type="radio" name="gaais_p_exciting" value="4"></td>
+            <td><input type="radio" name="gaais_p_exciting" value="5"></td>
+        </tr>
+        <tr>
+            <td>Artificial intelligence can be used for positive purposes.</td>
+            <td><input type="radio" name="gaais_p_positive" value="1"></td>
+            <td><input type="radio" name="gaais_p_positive" value="2"></td>
+            <td><input type="radio" name="gaais_p_positive" value="3"></td>
+            <td><input type="radio" name="gaais_p_positive" value="4"></td>
+            <td><input type="radio" name="gaais_p_positive" value="5"></td>
+        </tr>
+        <tr>
+            <td>I would trust an artificially intelligent system to recommend me things I would like.</td>
+            <td><input type="radio" name="gaais_p_trust_recommend" value="1"></td>
+            <td><input type="radio" name="gaais_p_trust_recommend" value="2"></td>
+            <td><input type="radio" name="gaais_p_trust_recommend" value="3"></td>
+            <td><input type="radio" name="gaais_p_trust_recommend" value="4"></td>
+            <td><input type="radio" name="gaais_p_trust_recommend" value="5"></td>
+        </tr>
+        <tr>
+            <td>An artificially intelligent system could comfort me if I was distressed.</td>
+            <td><input type="radio" name="gaais_p_comfort" value="1"></td>
+            <td><input type="radio" name="gaais_p_comfort" value="2"></td>
+            <td><input type="radio" name="gaais_p_comfort" value="3"></td>
+            <td><input type="radio" name="gaais_p_comfort" value="4"></td>
+            <td><input type="radio" name="gaais_p_comfort" value="5"></td>
+        </tr>
+        <tr>
+            <td>I think artificial intelligence is a good thing.</td>
+            <td><input type="radio" name="gaais_p_good_thing" value="1"></td>
+            <td><input type="radio" name="gaais_p_good_thing" value="2"></td>
+            <td><input type="radio" name="gaais_p_good_thing" value="3"></td>
+            <td><input type="radio" name="gaais_p_good_thing" value="4"></td>
+            <td><input type="radio" name="gaais_p_good_thing" value="5"></td>
+        </tr>
+        <tr>
+            <td>I would use an artificially intelligent health advisor.</td>
+            <td><input type="radio" name="gaais_p_health_advisor" value="1"></td>
+            <td><input type="radio" name="gaais_p_health_advisor" value="2"></td>
+            <td><input type="radio" name="gaais_p_health_advisor" value="3"></td>
+            <td><input type="radio" name="gaais_p_health_advisor" value="4"></td>
+            <td><input type="radio" name="gaais_p_health_advisor" value="5"></td>
+        </tr>
+        <tr>
+            <td>Much of society will benefit from a future full of artificial intelligence.</td>
+            <td><input type="radio" name="gaais_p_benefit_society" value="1"></td>
+            <td><input type="radio" name="gaais_p_benefit_society" value="2"></td>
+            <td><input type="radio" name="gaais_p_benefit_society" value="3"></td>
+            <td><input type="radio" name="gaais_p_benefit_society" value="4"></td>
+            <td><input type="radio" name="gaais_p_benefit_society" value="5"></td>
+        </tr>
+    </tbody>
+</table>
+
 {{ next_button }}
+
+<div id="saved-values" style="display:none;">{{ saved_values }}</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var raw = document.getElementById('saved-values').textContent;
+        var saved = JSON.parse(raw);
+        for (var field in saved) {
+            var val = saved[field];
+            var radio = document.querySelector('input[name="' + field + '"][value="' + val + '"]');
+            if (radio) {
+                radio.checked = true;
+            }
+        }
+    });
+</script>
 {{ endblock }}
