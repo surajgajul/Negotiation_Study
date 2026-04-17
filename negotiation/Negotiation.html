@@ -1,5 +1,5 @@
 {{ block title }}
-Round {{ round_number }}/8: {{ role_label }} Negotiation
+Round {{ round_number }}/4: {{ role_label }} Negotiation
 {{ endblock }}
 
 {{ block content }}
@@ -177,4 +177,12 @@ Round {{ round_number }}/8: {{ role_label }} Negotiation
         color: white;
     }
 </style>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var msg = document.getElementById('id_human_message');
+        if (msg) msg.placeholder = 'e.g. I would like to offer $55 / 55$ / 55 dollars because...';
+        var offer = document.getElementById('id_human_offer');
+        if (offer) offer.placeholder = 'e.g. 55';
+    });
+</script>
 {{ endblock }}

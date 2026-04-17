@@ -19,8 +19,8 @@ study:
   model_name: gpt-5
 
   # Study parameters
-  total_rounds: 8            # 4 rounds × 2 blocks
-  blocks: 2                  # Reflection on/off blocks
+  total_rounds: 4            # buyer×2 + supplier×2 (human-first / ai-first)
+  blocks: 1                  # Single block, no reflection
 
 logging:
   storage: otree

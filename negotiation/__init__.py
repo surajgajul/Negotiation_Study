@@ -17,7 +17,7 @@ Participants negotiate prices with AI agents across multiple rounds.
 class C(BaseConstants):
     NAME_IN_URL = 'negotiation'
     PLAYERS_PER_GROUP = None  # Single player negotiating with AI (None means all players in subsession)
-    NUM_ROUNDS = 8  # 4 rounds × 2 blocks
+    NUM_ROUNDS = 4  # buyer×2 + supplier×2 (human-first / ai-first)
 
 
 class Subsession(BaseSubsession):
@@ -72,10 +72,8 @@ class Subsession(BaseSubsession):
         self.reflection_on = config["reflection_on"]
         self.block_number = config["block_number"]
         self.seed_round = config["seed_round"]
-
-        # Set initiator based on round number
-        self._set_initiator()
-        print(f">>> Subsession {self.round_number} initialized: reflection={self.reflection_on}, initiator={self.initiator}")
+        self.initiator = config["initiator"]
+        print(f">>> Subsession {self.round_number} initialized: role={config['player_role']}, initiator={self.initiator}")
 
     def _set_initiator(self):
         """Set initiator based on round number: odd=ai, even=human"""
@@ -159,11 +157,11 @@ class Player(BasePlayer):
     player_role = models.StringField(choices=['buyer', 'supplier', ''], blank=True, initial='')
 
     def get_role(self):
-        """Get role based on round number"""
-        # Alternate roles each round: round 1,3,5,7 = buyer, round 2,4,6,8 = supplier
+        """Get role based on round number (fallback if player_role not set)"""
+        # Rounds 1-2 = buyer, rounds 3-4 = supplier
         if hasattr(self, 'round_number') and self.round_number:
-            return 'buyer' if self.round_number % 2 == 1 else 'supplier'
-        return 'supplier'
+            return 'buyer' if self.round_number <= 2 else 'supplier'
+        return 'buyer'
 
     # Round outcomes
     final_price = models.IntegerField(blank=True, null=True)  # Deal price if reached
@@ -387,6 +385,7 @@ class Negotiation(Page):
     #     if offer is None:
     #         self.form.add_error('human_offer', 'Please enter an offer')
     def error_message(self, values):
+        import re
         action = values.get('human_action', 'counter')
         message = values.get('human_message', '').strip()
         offer = values.get('human_offer')
@@ -413,6 +412,21 @@ class Negotiation(Page):
 
         if offer < valid_range[0] or offer > valid_range[1]:
             return f'Offer must be between ${valid_range[0]} and ${valid_range[1]}.'
+
+        # Check that dollar amounts mentioned in the message match the offer field
+        # Matches patterns like $50, $50.00, 50 dollars, 50$
+        amounts = set()
+        for m in re.finditer(r'\$\s*(\d+(?:,\d{3})*)(?:\.\d+)?', message):
+            amounts.add(int(m.group(1).replace(',', '')))
+        for m in re.finditer(r'(\d+(?:,\d{3})*)\s*(?:dollars?|\$)', message):
+            amounts.add(int(m.group(1).replace(',', '')))
+
+        if amounts and offer not in amounts:
+            return (
+                f'The price in your message (${", $".join(str(a) for a in sorted(amounts))}) '
+                f'does not match your offer (${offer}). '
+                f'Please make sure they are consistent.'
+            )
 
     def is_displayed(self):
         """Show Negotiation page only while negotiation is in progress"""
@@ -984,9 +998,7 @@ page_sequence = [
     Negotiation,
     Negotiation,
     Negotiation,
-    Negotiation,
-    Negotiation,
     RoundResults,  # Show outcome (all rounds)
-    PostSurvey,  # Post-survey (round 8 only)
-    FinalResults,  # Completion (round 8 only)
+    PostSurvey,  # Post-survey (round 4 only)
+    FinalResults,  # Completion (round 4 only)
 ]

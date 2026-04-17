@@ -425,14 +425,41 @@ Study Feedback
 <div id="saved-values" style="display:none;">{{ saved_values }}</div>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        var raw = document.getElementById('saved-values').textContent;
-        var saved = JSON.parse(raw);
-        for (var field in saved) {
-            var val = saved[field];
+        var STORAGE_KEY = 'postsurvey_answers';
+
+        // Merge DB-saved values and sessionStorage (sessionStorage wins)
+        var dbSaved = JSON.parse(document.getElementById('saved-values').textContent);
+        var stored = {};
+        try { stored = JSON.parse(sessionStorage.getItem(STORAGE_KEY)) || {}; } catch(e) {}
+        var merged = Object.assign({}, dbSaved, stored);
+
+        // Restore all saved selections
+        for (var field in merged) {
+            var val = merged[field];
             var radio = document.querySelector('input[name="' + field + '"][value="' + val + '"]');
-            if (radio) {
-                radio.checked = true;
-            }
+            if (radio) radio.checked = true;
+        }
+
+        // Persist every change to sessionStorage
+        document.querySelectorAll('input[type="radio"]').forEach(function(radio) {
+            radio.addEventListener('change', function() {
+                try {
+                    var current = JSON.parse(sessionStorage.getItem(STORAGE_KEY)) || {};
+                    current[this.name] = this.value;
+                    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(current));
+                } catch(e) {}
+            });
+        });
+
+        // Clear sessionStorage on successful form submission
+        var form = document.querySelector('form');
+        if (form) {
+            form.addEventListener('submit', function() {
+                // Small delay so oTree processes the submit first;
+                // if validation fails the page reloads and DOMContentLoaded restores values.
+                // If it succeeds, sessionStorage is clean for any future visit.
+                setTimeout(function() { sessionStorage.removeItem(STORAGE_KEY); }, 500);
+            });
         }
     });
 </script>
