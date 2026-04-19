@@ -10,7 +10,7 @@ services:
     runtime: python
     plan: free
     buildCommand: ./build.sh
-    startCommand: otree prodserver --port $PORT
+    startCommand: otree prodserver 0.0.0.0:$PORT
     envVars:
       - key: DATABASE_URL
         fromDatabase:
