@@ -1,0 +1,30 @@
+databases:
+  - name: otree-db
+    plan: free
+    databaseName: otree
+    user: otree
+
+services:
+  - type: web
+    name: negotiation-study
+    runtime: python
+    plan: free
+    buildCommand: ./build.sh
+    startCommand: otree prodserver --port $PORT
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: otree-db
+          property: connectionString
+      - key: OTREE_PRODUCTION
+        value: "1"
+      - key: OTREE_ADMIN_PASSWORD
+        sync: false
+      - key: AZURE_OPENAI_ENDPOINT
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: AZURE_OPENAI_API_VERSION
+        sync: false
+      - key: PYTHON_VERSION
+        value: "3.11.6"
