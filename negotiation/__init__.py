@@ -570,12 +570,8 @@ class Negotiation(Page):
         status_message = ''
         print(f"=== NEGOTIATION CHECK === messages: {len(messages)}, max_turns: {max_turns}")
 
-        # Check for agreement (someone said "accept" or "I accept")
-        agreement_detected = False
-        for msg in messages:
-            if 'accept' in msg.get('text', '').lower():
-                agreement_detected = True
-                break
+        # Only detect agreement if human explicitly accepted (via accept button)
+        agreement_detected = self.agreement_reached
 
         if agreement_detected:
             negotiation_complete = True
@@ -807,11 +803,9 @@ class Negotiation(Page):
         messages = self.group.get_messages()
         max_turns = self.session.config.get('max_turns_per_side', 6)
 
-        agreement_detected = False
-        for msg in messages:
-            if 'accept' in msg.get('text', '').lower():
-                agreement_detected = True
-                break
+        # Only count as agreement if the human explicitly accepted (via the accept button)
+        # Don't use keyword detection — AI might say "I can't accept" which is NOT agreement
+        agreement_detected = self.agreement_reached
 
         if agreement_detected or len(messages) >= max_turns * 2:
             self.negotiation_complete = True
@@ -995,6 +989,8 @@ page_sequence = [
     PreSurvey,  # Pre-survey (round 1 only)
     RoundInstructions,  # Show role (all rounds)
     Negotiation,  # Negotiate - looping up to 6 times
+    Negotiation,
+    Negotiation,
     Negotiation,
     Negotiation,
     Negotiation,
